@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ap.kl.mapper.QrtzSimpropTriggersMapper">
+
+	<!-- 通用查询结果列-->
+	<sql id="Base_Column_List">
+		 SCHED_NAME,		 TRIGGER_NAME,		 TRIGGER_GROUP, STR_PROP_1, STR_PROP_2, STR_PROP_3, INT_PROP_1, INT_PROP_2, LONG_PROP_1, LONG_PROP_2, DEC_PROP_1, DEC_PROP_2, BOOL_PROP_1, BOOL_PROP_2
+	</sql>
+
+</mapper>

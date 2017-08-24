@@ -1,0 +1,542 @@
+#override("title") AP 数据查询-日数据查询 #end #override("css")
+<link
+	href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')"
+	rel="stylesheet">
+#end #override("breadcrumb")
+<li><a>数据查询</a></li>
+<li class="active"><strong>日数据查询</strong></li>
+#end #override("content")
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div class="wrapper-content-dayinfo animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>查询条件</h5>
+			<div class="ibox-tools">
+				<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+				</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i
+					class="fa fa-wrench"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-user">
+					<li><a href="#">选项1</a></li>
+					<li><a href="#">选项2</a></li>
+				</ul>
+				<a class="close-link"> <i class="fa fa-times"></i>
+				</a>
+			</div>
+		</div>
+		<div class="ibox-content">
+			<div class="form-group">
+				<div class="row">
+					<label class="col-md-1 control-label"
+						style="width: 10%; margin-top: 7px;">案场地点：</label>
+					<div class="col-md-2">
+						<select id="sel_place" style="width: 85%;" class="form-control">
+							<option>选项 1</option>
+							<option>选项 2</option>
+							<option>选项 3</option>
+							<option>选项 4</option>
+						</select>
+					</div>
+					<!-- 					<div class="col-md-1 " style="width: 9%;">年份：</div> -->
+					<label class="col-md-1 control-label" style="width: 10%; margin-top: 7px;">年份：</label>
+					<div class="col-md-2">
+						<select id="sel_year" style="width: 85%;" class="form-control">
+							<option>2017</option>
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+						</select>
+					</div>
+					<div class="col-md-2">
+						<input id="doSearch" type="button" class="btn btn-sm btn-success"
+							value="查询">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>查询条件</h5>
+
+				<div class="ibox-tools">
+
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i
+						class="fa fa-wrench"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#">选项1</a></li>
+						<li><a href="#">选项2</a></li>
+					</ul>
+					<a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="ibox-content">
+				<div class="form-group">
+					<!-- 				<label class="col-sm-2 control-label">案场地点：</label> -->
+					<div class="row">
+<!-- 						<div class="col-md-1 " style="width: 10%;">案场地点：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">案场地点：</label>
+						<div class="col-md-2">
+							<select id="sel_place" style="width: 85%;" class="form-control">
+								<option>选项 1</option>
+								<option>选项 2</option>
+								<option>选项 3</option>
+								<option>选项 4</option>
+							</select>
+						</div>
+						<!-- <div class="col-md-1 " style="width: 10%;">时段类型：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">时段类型：</label>
+						<div class="col-md-5">
+							<label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option1" checked /> 日
+							</label> <label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option2" /> 周
+							</label> <label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option3" /> 月
+							</label> <label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option4" /> 年
+							</label> 
+							<label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option5" /> 自定义
+							</label>
+														<label class="radio-inline"> <input type="radio"
+								name="optionsRadios" value="option5" /> 自定义
+							</label>
+						</div>
+						<div class="col-md-2"></div>
+					</div>
+					<br />
+					<div class="row">
+						<!-- <div class="col-md-3 " style="width: 10%;">对比时段一：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">对比时段一：</label>
+						<div class="col-md-2">
+							<div class="input-group date" id="timeDur_1">
+								<span class="input-group-addon"> <i
+									class="fa fa-calendar"> </i>
+								</span> <input type="text" class="form-control" value="2014-11-11">
+							</div>
+						</div>
+
+						<!-- <div class="col-md-3 " style="width: 10%;">对比时段二：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">对比时段二：</label>
+						<div class="col-md-2">
+							<div class="input-group date" id="timeDur_2">
+								<span class="input-group-addon"> <i
+									class="fa fa-calendar"> </i>
+								</span> <input type="text" class="form-control" value="2014-11-11">
+							</div>
+						</div>
+						<!-- <div class="col-md-1 " style="width: 10%;">对比内容：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">对比内容：</label>
+						<div class="col-md-2">
+							<select id="sel_place" style="width: 85%;" class="form-control">
+								<option>选项 1</option>
+								<option>选项 2</option>
+								<option>选项 3</option>
+								<option>选项 4</option>
+							</select>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<!-- <div class="col-md-1 " style="width: 10%;">显示方式：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">显示方式：</label>
+						<div class="col-md-2">
+							<label class="radio-inline"> <input type="radio"
+								name="optionsRadiosShowWay" value="optionMin" checked /> 按分钟
+							</label> <label class="radio-inline"> <input type="radio"
+								name="optionsRadiosShowWay" value="optionDay" /> 按日
+							</label>
+						</div>
+						<!-- <div class="col-md-1 " style="width: 10%;">对比内容：</div> -->
+						<label class="col-md-1 control-label" style="width: 11%; margin-top: 7px;">对比内容：</label>
+						<div class="col-md-2">
+							<select id="sel_place" style="width: 85%;" class="form-control">
+								<option>选项 1</option>
+								<option>选项 2</option>
+								<option>选项 3</option>
+								<option>选项 4</option>
+							</select>
+						</div>
+						<div class="col-md-2">
+							<input id="doSearch" type="button" class="btn btn-sm btn-success"
+							value="查询">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tabs-container">
+			<ul class="nav nav-tabs">
+				<li class="active"><a data-toggle="tab" href="#tab-1"
+					aria-expanded="true"> 第一个选项卡</a></li>
+				<li class=""><a data-toggle="tab" href="#tab-2"
+					aria-expanded="false">第二个选项卡</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="tab-1" class="tab-pane active">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>日数据</h5>
+							<div class="ibox-tools">
+								<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+								</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+									<i class="fa fa-wrench"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-user">
+									<li><a href="#">选项1</a></li>
+									<li><a href="#">选项2</a></li>
+								</ul>
+								<a class="close-link"> <i class="fa fa-times"></i>
+								</a>
+							</div>
+						</div>
+						<div class="ibox-content">
+							<div class="row row-lg">
+								<div class="col-sm-12">
+									<h4 class="example-title"></h4>
+									<div class="example">
+										<div class="table-responsive">
+											<div id="main" style="padding: 20px; height: 400px"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>日数据</h5>
+							<div class="ibox-tools">
+								<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+								</a> <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+									<i class="fa fa-wrench"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-user">
+									<li><a href="#">选项1</a></li>
+									<li><a href="#">选项2</a></li>
+								</ul>
+								<a class="close-link"> <i class="fa fa-times"></i>
+								</a>
+							</div>
+						</div>
+						<div class="ibox-content">
+							<div class="row row-lg">
+								<div class="col-sm-12">
+									<h4 class="example-title"></h4>
+									<div class="example">
+										<div class="table-responsive">
+											<table class="table table-bordered table-striped">
+												<thead>
+													<tr>
+														<th></th>
+														<th>超小屏幕 <small>手机 (&lt;768px)</small>
+														</th>
+														<th>小屏幕 <small>平板 (≥768px)</small>
+														</th>
+														<th>中等屏幕 <small>桌面显示器 (≥992px)</small>
+														</th>
+														<th>大屏幕 <small>大桌面显示器 (≥1200px)</small>
+														</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<th class="text-nowrap">栅格系统行为</th>
+														<td>总是水平排列</td>
+														<td colspan="3">开始是堆叠在一起的，当大于这些阈值时将变为水平排列C</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap"><code>.container</code> 最大宽度</th>
+														<td>None （自动）</td>
+														<td>750px</td>
+														<td>970px</td>
+														<td>1170px</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">类前缀</th>
+														<td><code>.col-xs-</code></td>
+														<td><code>.col-sm-</code></td>
+														<td><code>.col-md-</code></td>
+														<td><code>.col-lg-</code></td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">列（column）数</th>
+														<td colspan="4">12</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">最大列（column）宽</th>
+														<td class="text-muted">自动</td>
+														<td>~62px</td>
+														<td>~81px</td>
+														<td>~97px</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">槽（gutter）宽</th>
+														<td colspan="4">30px （每列左右均有 15px）</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">可嵌套</th>
+														<td colspan="4">是</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">偏移（Offsets）</th>
+														<td colspan="4">是</td>
+													</tr>
+													<tr>
+														<th class="text-nowrap">列排序</th>
+														<td colspan="4">是</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="tab-2" class="tab-pane">
+					<div class="panel-body">
+						<strong>移动设备优先</strong>
+						<p>在 Bootstrap 2 中，我们对框架中的某些关键部分增加了对移动设备友好的样式。而在 Bootstrap 3
+							中，我们重写了整个框架，使其一开始就是对移动设备友好的。这次不是简单的增加一些可选的针对移动设备的样式，而是直接融合进了框架的内核中。也就是说，Bootstrap
+							是移动设备优先的。针对移动设备的样式融合进了框架的每个角落，而不是增加一个额外的文件。</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- End Panel Basic -->
+	</div>
+	#end #override("js")
+	<script
+		src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+	<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+	<!-- <script src="#springUrl('/static/js/base_list.js')"></script> -->
+	<script src="#springUrl('/static/js/common.js')"></script>
+	<!-- <script src="#springUrl('/static/js/tableInit.js')"></script> -->
+	<script
+		src="#springUrl('/static/js/plugins/sweetalert/sweetalert.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/staps/jquery.steps.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/validate/jquery.validate.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/validate/messages_zh.min.js')"></script>
+	<!-- <script src="#springUrl('/static/css/plugins/bootstrap3-editable/bootstrap-editable.css')"></script> -->
+	<link rel="stylesheet"
+		href="#springUrl('/static/css/plugins/bootstrap3-editable/bootstrap-editable.css')">
+	<script
+		src="#springUrl('/static/js/plugins/bootstrap3-editable/bootstrap-editable.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/bootstrap3-editable/bootstrap-table-editable.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/suggest/bootstrap-suggest.min.js')"></script>
+	<script src="http://echarts.baidu.com/build/dist/echarts-all.js"></script>
+	<script
+		src="#springUrl('/static/js/plugins/datapicker/bootstrap-datepicker.js')"></script>
+	<script src="#springUrl('/static/js/plugins/chosen/chosen.jquery.js')"></script>
+	<script src="#springUrl('/static/js/plugins/jsKnob/jquery.knob.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/jasny/jasny-bootstrap.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/datapicker/bootstrap-datepicker.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/prettyfile/bootstrap-prettyfile.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/nouslider/jquery.nouislider.min.js')"></script>
+	<script src="#springUrl('/static/js/plugins/switchery/switchery.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/ionRangeSlider/ion.rangeSlider.min.js')"></script>
+	<script src="#springUrl('/static/js/plugins/iCheck/icheck.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/metisMenu/jquery.metisMenu.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/colorpicker/bootstrap-colorpicker.min.js')"></script>
+	<script
+		src="#springUrl('/static/js/plugins/clockpicker/clockpicker.js')"></script>
+	<script src="#springUrl('/static/js/plugins/cropper/cropper.min.js')"></script>
+
+	<script type="text/javascript">
+		$("#timeDur_1").datepicker({
+			todayBtn : "linked",
+			keyboardNavigation : !1,
+			forceParse : !1,
+			calendarWeeks : !0,
+			autoclose : !0,
+			pickerPosition : "bottom-left"
+		})
+		$("#timeDur_2").datepicker({
+			todayBtn : "linked",
+			keyboardNavigation : !1,
+			forceParse : !1,
+			calendarWeeks : !0,
+			autoclose : !0,
+			pickerPosition : "bottom-left"
+		})
+		//基于准备好的dom，初始化echarts图表
+		var myChart = echarts.init(document.getElementById('main'));
+
+		var option = {
+			title : {
+				text : '未来一周气温变化',
+				subtext : '纯属虚构'
+			},
+			tooltip : {
+				trigger : 'axis'
+			},
+			legend : {
+				data : [ '最高气温', '最低气温' ]
+			},
+			toolbox : {
+				show : true,
+				feature : {
+					mark : {
+						show : true
+					},
+					dataView : {
+						show : true,
+						readOnly : false
+					},
+					magicType : {
+						show : true,
+						type : [ 'line', 'bar' ]
+					},
+					restore : {
+						show : true
+					},
+					saveAsImage : {
+						show : true
+					}
+				}
+			},
+			calculable : true,
+			xAxis : [ {
+				type : 'category',
+				boundaryGap : false,
+				data : [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
+			} ],
+			yAxis : [ {
+				type : 'value',
+				axisLabel : {
+					formatter : '{value} °C'
+				}
+			} ],
+			series : [ {
+				name : '最高气温',
+				type : 'line',
+				data : [ 11, 11, 15, 13, 12, 13, 10 ],
+				markPoint : {
+					data : [ {
+						type : 'max',
+						name : '最大值'
+					}, {
+						type : 'min',
+						name : '最小值'
+					} ]
+				},
+				markLine : {
+					data : [ {
+						type : 'average',
+						name : '平均值'
+					} ]
+				}
+			}, {
+				name : '最低气温',
+				type : 'line',
+				data : [ 1, -2, 2, 5, 3, 2, 0 ],
+				markPoint : {
+					data : [ {
+						name : '周最低',
+						value : -2,
+						xAxis : 1,
+						yAxis : -1.5
+					} ]
+				},
+				markLine : {
+					data : [ {
+						type : 'average',
+						name : '平均值'
+					} ]
+				}
+			} ]
+		};
+
+		// 为echarts对象加载数据 
+		myChart.setOption(option);
+		/* var myChart = echarts.init(document.getElementById('main'));
+		// 显示标题，图例和空的坐标轴
+		myChart.setOption({
+			title : {
+				text : '日客流量统计',
+				subtext: '紫荆广场'
+			},
+			tooltip : {
+				trigger: 'axis'
+			},
+			legend : {
+				data:['进入客流','离开客流']
+			},
+			xAxis : {
+				data : []
+			},
+			yAxis : {},
+			series : [ {
+				name : '销量',
+				type : 'bar',
+				data : []
+			} ]
+		});
+
+		myChart.showLoading(); //数据加载完之前先显示一段简单的loading动画
+
+		var names = []; //类别数组（实际用来盛放X轴坐标值）
+		var nums = []; //销量数组（实际用来盛放Y坐标值）
+
+		$.ajax({
+			type : "post",
+			async : true, //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+			url : "TestServlet", //请求发送到TestServlet处
+			data : {},
+			dataType : "json", //返回数据形式为json
+			success : function(result) {
+				//请求成功时执行该函数内容，result即为服务器返回的json对象
+				if (result) {
+					for (var i = 0; i < result.length; i++) {
+						names.push(result[i].name); //挨个取出类别并填入类别数组
+					}
+					for (var i = 0; i < result.length; i++) {
+						nums.push(result[i].num); //挨个取出销量并填入销量数组
+					}
+					myChart.hideLoading(); //隐藏加载动画
+					myChart.setOption({ //加载数据图表
+						xAxis : {
+							data : names
+						},
+						series : [ {
+							// 根据名字对应到相应的系列
+							name : '销量',
+							data : nums
+						} ]
+					});
+
+				}
+
+			},
+			error : function(errorMsg) {
+				//请求失败时执行该函数
+				alert("图表请求数据失败!");
+				myChart.hideLoading();
+			}
+		}) */
+	</script>
+
+	#end #extends("/common/framework.html")

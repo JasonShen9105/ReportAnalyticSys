@@ -1,0 +1,540 @@
+#override("title") AP 客流统计系统 - 基础数据 #end #override("css")
+<link
+	href="#springUrl('/static/css/plugins/bootstrap-table/bootstrap-table.min.css')"
+	rel="stylesheet">
+#end #override("breadcrumb")
+<li><a>区域设定</a></li>
+<li class="active"><strong>区域设定</strong></li>
+#end #override("content")
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+.wizard>.steps>ul>li {
+	width: 20%;
+}
+</style>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="ibox">
+			<div class="ibox-title">
+				<h5>基础数据设定向导</h5>
+				<div class="ibox-tools">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="dropdown-toggle" data-toggle="dropdown"
+						href="form_wizard.html#"> <i class="fa fa-wrench"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="form_wizard.html#">选项1</a></li>
+						<li><a href="form_wizard.html#">选项2</a></li>
+					</ul>
+					<a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+			</div>
+			<div class="ibox-content">
+				<form id="form"
+					action="http://www.zi-han.net/theme/hplus/form_wizard.html#"
+					class="wizard-big">
+
+					<h1>大区设置</h1>
+					<fieldset>
+						<h2>个人资料信息</h2>
+
+					</fieldset>
+
+					<h1>案场设置</h1>
+					<fieldset></fieldset>
+					<h1>监控设备设置</h1>
+					<fieldset>
+						<h2>设备信息</h2>
+
+						<div class="row"></div>
+						<div class="row">
+							<div class="col-sm-3" style="margin-right: -25px;">
+								<select class="form-control m-b" name="account"
+									id="sel_WayCreate">
+									<option value="0">未选择</option>
+									<option value="1">批量添加设备</option>
+									<option value="2" selected="selected">手动添加设备</option>
+								</select>
+							</div>
+							<div class="col-sm-3" style="margin-right: -25px; display: none;"
+								id="div_SBCount">
+								<input id="txt_DevCount" type="text" placeholder="设置需要生成的设备个数"
+									class="form-control">
+							</div>
+							<div class="col-sm-2" style="margin-right: -25px; display: none;"
+								id="div_SBCreate">
+								<input id="doCreate" type="button"
+									class="btn btn-w-m btn-primary" value="生成" />
+							</div>
+							<div class="col-sm-4" id="div_SBAdd">
+								<input id="doAdd" type="button" class="btn btn-w-m btn-primary"
+									value="新增" />
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-sm-32">
+								<table id="showCount"></table>
+							</div>
+							<!-- 							<div class="col-sm-8">
+								<div class="form-group">
+									<label>用户名 *</label> <input id="userName" name="userName"
+										type="text" class="form-control required">
+								</div>
+								<div class="form-group">
+									<label>密码 *</label> <input id="password" name="password"
+										type="text" class="form-control required">
+								</div>
+								<div class="form-group">
+									<label>确认密码 *</label> <input id="confirm" name="confirm"
+										type="text" class="form-control required">
+								</div>
+							</div> -->
+							<div class="col-sm-4">
+								<div class="text-center">
+									<div style="margin-top: 20px">
+										<i class="fa fa-sign-in"
+											style="font-size: 180px; color: #e5e5e5"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</fieldset>
+					<h1>门设置</h1>
+					<fieldset></fieldset>
+					<h1>区域设置</h1>
+					<fieldset></fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- <ul id="myTab" class="nav nav-pills nav-justified"> -->
+<!-- 	<li class="active"><a href="#home" data-toggle="tab"> 设备信息 </a></li> -->
+<!-- 	<li><a href="#door" data-toggle="tab">门信息</a></li> -->
+<!-- 	<li><a href="#agea" data-toggle="tab">区域信息</a></li> -->
+<!-- 	<li><a href="#region" data-toggle="tab">大区信息</a></li> -->
+
+<!-- </ul> -->
+
+
+<!-- <div id="myTabContent" class="tab-content"> -->
+<!-- 	<div class="tab-pane fade in active" id="home"> -->
+<!-- 		<div class="row" id="div_DayViewCount"> -->
+<!-- 			<div class="col-sm-12"> -->
+<!-- 				<table id="showCount"></table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="tab-pane fade" id="door"> -->
+<!-- 		<div class="row" id="div_DayViewCount2"> -->
+<!-- 			<div class="col-sm-12"> -->
+<!-- 				<table id="showCount2"></table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="tab-pane fade" id="agea"> -->
+<!-- 		<div class="row" id="div_DayViewCount3"> -->
+<!-- 			<div class="col-sm-12"> -->
+<!-- 				<table id="showCount3"></table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	<div class="tab-pane fade" id="region"> -->
+<!-- 		<div class="row" id="div_DayViewCount4"> -->
+<!-- 			<div class="col-sm-12"> -->
+<!-- 				<table id="showCount4"></table> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+#end #override("js")
+
+<script
+	src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table.min.js')"></script>
+<script
+	src="#springUrl('/static/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js')"></script>
+<script
+	src="#springUrl('/static/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js')"></script>
+<script src="#springUrl('/static/plugins/layer-v2.2/layer/layer.js')"></script>
+<!-- <script src="#springUrl('/static/js/base_list.js')"></script> -->
+<script src="#springUrl('/static/js/common.js')"></script>
+<!-- <script src="#springUrl('/static/js/tableInit.js')"></script> -->
+<script
+	src="#springUrl('/static/js/plugins/sweetalert/sweetalert.min.js')"></script>
+<script src="#springUrl('/static/js/plugins/staps/jquery.steps.min.js')"></script>
+<script
+	src="#springUrl('/static/js/plugins/validate/jquery.validate.min.js')"></script>
+<script
+	src="#springUrl('/static/js/plugins/validate/messages_zh.min.js')"></script>
+<!-- <script src="#springUrl('/static/css/plugins/bootstrap3-editable/bootstrap-editable.css')"></script> -->
+<link rel="stylesheet"
+	href="#springUrl('/static/css/plugins/bootstrap3-editable/bootstrap-editable.css')">
+<script
+	src="#springUrl('/static/js/plugins/bootstrap3-editable/bootstrap-editable.min.js')"></script>
+<script
+	src="#springUrl('/static/js/plugins/bootstrap3-editable/bootstrap-table-editable.js')"></script>
+
+<script type="text/javascript">
+	$(document).ready(function ()
+		{
+		    $("#wizard").steps();
+		    $("#form").steps(
+		    {
+		        bodyTag : "fieldset",
+		        onStepChanging : function (event, currentIndex, newIndex)
+		        {
+		            if (currentIndex > newIndex) {
+		                return true
+		            }
+		            if (newIndex === 3 && Number($("#age").val()) < 18) {
+		                return false
+		            }
+		            var form = $(this);
+		            if (currentIndex < newIndex)
+		            {
+		                $(".body:eq(" + newIndex + ") label.error", form).remove();
+		                $(".body:eq(" + newIndex + ") .error", form).removeClass("error")
+		            }
+		            form.validate().settings.ignore = ":disabled,:hidden";
+		            return form.valid();
+		        },
+		        onStepChanged : function (event, currentIndex, priorIndex)
+		        {
+		            if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+		                $(this).steps("next")
+		            }
+		            if (currentIndex === 2 && priorIndex === 3 && priorIndex === 4) {
+		                $(this).steps("previous")
+		            }
+		        },
+		        onFinishing : function (event, currentIndex)
+		        {
+		            var form = $(this);
+		            form.validate().settings.ignore = ":disabled";
+		            return form.valid();
+		        },
+		        onFinished : function (event, currentIndex)
+		        {
+		            var form = $(this);
+		            form.submit()
+		        }
+		    }).validate(
+		    {
+		        errorPlacement : function (error, element)
+		        {
+		            element.before(error)
+		        },
+		        rules : {
+		            confirm : {
+		                //equalTo : "#password"
+		            }
+		        }
+		    })
+		    showCount("showCount");
+		});
+	$(function() {
+		$('#sel_WayCreate').change(function(){
+			var p1=$(this).children('option:selected').val();
+			if(p1 == "1")
+			{
+				$('#div_SBCount').show();
+				$('#div_SBCreate').show();
+			}
+			else if (p1 == "2")
+			{
+				$('#div_SBCount').hide();
+				$('#div_SBCreate').hide();
+			}
+		})
+		$('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+			// 获取已激活的标签页的名称
+			var activeTab = $(e.target).text();
+			// 获取前一个激活的标签页的名称
+			var previousTab = $(e.relatedTarget).text();
+			$(".active-tab span").html(activeTab);
+			$(".previous-tab span").html(previousTab);
+		});
+		$('.demo3').click(function () {
+		    swal({
+		        title: "您确定要删除这条信息吗",
+		        text: "删除后将无法恢复，请谨慎操作！",
+		        type: "warning",
+		        showCancelButton: true,
+		        confirmButtonColor: "#DD6B55",
+		        confirmButtonText: "删除",
+		        closeOnConfirm: false
+		    }, function () {
+		        swal("删除成功！", "您已经永久删除了这条信息。", "success");
+		    });
+		});
+		$('#doAdd').click(function (){
+			var allTableData = $('#showCount').bootstrapTable('getData');
+            var indexCount = allTableData.length;
+            var randomId = 100 + ~~(Math.random() * 100);
+            $('#showCount').bootstrapTable("insertRow", { index: indexCount, row: { 
+            	  ID: randomId
+            	, SERVER_ID: randomId
+            	, SERVER_IP: randomId
+            	, DEVICE_ID: randomId
+            	, DEVICE_ODM:randomId
+            	, DEVICE_PLACE:randomId
+            	, INSERT_TIME:randomId
+            	, UPDATE_TIME:randomId
+            } })
+		});
+		
+		$('#doCreate').click(function(){
+			var intDevCount = $('#txt_DevCount').val();
+			var rows = $('#txt_DevCount').val(),
+            i, j, row,
+            columns = [],
+            data = [];
+			dataColumns = [
+			       		{
+			       	        field: 'ID',
+			       	        title: '序号'
+			       	    }, {
+			       	        field: 'SERVER_ID',
+			       	        title: '采集器ID'
+			       	    }, {
+			       	        field: 'SERVER_IP',
+			       	        title: '采集器IP'
+			       	    }, {
+			       	        field: 'DEVICE_ID',
+			       	        title: '设备ID'
+			       	    }, {
+			       	        field: 'DEVICE_ODM',
+			       	        title: '设备制造商',
+			       	        editable: {
+			                       type: 'text',
+			                       title: '设备制造商',
+			                       validate: function (v) {
+			                           if (!v) return '设备制造商';
+
+			                       }
+			                   }
+			       	    }, {
+			       	        field: 'DEVICE_PLACE',
+			       	        title: '设备安装位置'
+			       	    }, {
+			       	        field: 'INSERT_TIME',
+			       	        title: '创建时间',
+			       	        editable: {
+			       	            type: 'date',
+			       	            title: '创建时间'
+			       	        },
+			       	        formatter: function (value, row, index) {
+			       	        	var datetime = new Date();
+			       	            datetime.setTime(value);
+			       	            var year = datetime.getFullYear();
+			       	            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+			       	            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+			       				
+			       	            return year + "-" + month + "-" + date;
+			       	            //return formatDate(row.INSERT_TIME).substring(0,11);
+			       	        }
+			       	   
+			       	    }, {
+			       	        field: 'UPDATE_TIME',
+			       	        title: '最后更新时间',
+			       	        editable: {
+			                       type: 'date',
+			                       title: '最后更新时间'
+			                   },
+			       	        formatter: function (value, row, index) {
+			       	        	//var date = eval('new ' + eval(value).UPDATE_TIME)
+			                       //return date.format("yyyy-MM-dd");
+			       	        	var datetime = new Date();
+			       	            datetime.setTime(value);
+			       	            var year = datetime.getFullYear();
+			       	            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+			       	            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+			       				
+			       	            return year + "-" + month + "-" + date;
+			       	        }
+			       	        
+			       	    }, {
+			       			title : '操作',
+			       			formatter : function(value, row, index) {
+			       				  var id = row.id;
+			       		            return '<a class="btn btn-xs btn-warning" onclick="editUser(' + "'" + id + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+			       		                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
+			       		                    #if($SSOPermission.isActionable("10010"))
+			       		                    + '<a class="btn btn-xs btn-danger" onclick="delUser(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>'
+			       		                    #end;
+			       				
+			       			}
+			       		} ];
+			for (i = 0; i < rows; i++) {
+                row = {};
+                //for (j = 0; j < 9; j++) {
+                    //row['field' + j] = 'Row-' + i + '-' + j;
+                //}
+                row['SERVER_ID'] = i;
+                row['SERVER_IP'] = i;
+                row['DEVICE_ID'] = i;
+                row['DEVICE_ODM'] = i;
+                row['DEVICE_PLACE'] = i;
+                row['INSERT_TIME'] = i;
+                row['UPDATE_TIME'] = i;
+                data.push(row);
+            }
+            $('#showCount').bootstrapTable('destroy').bootstrapTable({ 
+            	columns: dataColumns,
+                data: data
+            });
+		});
+	});
+	var dataInit = ""
+	function showCount(value)
+	{
+		var dataInit = value;
+		dataUrl = "#springUrl('/baseinfo/paramset/getDeviceList.html')";
+		//var dataUrl = "#springUrl('/perm/user/getUserList.html')";
+		dataColumns = [
+		{
+	        field: 'ID',
+	        title: '序号'
+	    }, {
+	        field: 'SERVER_ID',
+	        title: '采集器ID'
+	    }, {
+	        field: 'SERVER_IP',
+	        title: '采集器IP'
+	    }, {
+	        field: 'DEVICE_ID',
+	        title: '设备ID'
+	    }, {
+	        field: 'DEVICE_ODM',
+	        title: '设备制造商',
+	        editable: {
+                type: 'text',
+                title: '设备制造商',
+                validate: function (v) {
+                    if (!v) return '设备制造商';
+
+                }
+            }
+	    }, {
+	        field: 'DEVICE_PLACE',
+	        title: '设备安装位置'
+	    }, {
+	        field: 'INSERT_TIME',
+	        title: '创建时间',
+	        editable: {
+	            type: 'date',
+	            title: '创建时间'
+	        },
+	        formatter: function (value, row, index) {
+	        	var datetime = new Date();
+	            datetime.setTime(value);
+	            var year = datetime.getFullYear();
+	            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+	            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+				
+	            return year + "-" + month + "-" + date;
+	            //return formatDate(row.INSERT_TIME).substring(0,11);
+	        }
+	   
+	    }, {
+	        field: 'UPDATE_TIME',
+	        title: '最后更新时间',
+	        editable: {
+                type: 'date',
+                title: '最后更新时间'
+            },
+	        formatter: function (value, row, index) {
+	        	//var date = eval('new ' + eval(value).UPDATE_TIME)
+                //return date.format("yyyy-MM-dd");
+	        	var datetime = new Date();
+	            datetime.setTime(value);
+	            var year = datetime.getFullYear();
+	            var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+	            var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+				
+	            return year + "-" + month + "-" + date;
+	        }
+	        
+	    }, {
+			title : '操作',
+			formatter : function(value, row, index) {
+				  var id = row.id;
+		            return '<a class="btn btn-xs btn-warning" onclick="editUser(' + "'" + id + "'" + ')"><i class="fa fa-pencil"></i>编辑</a> '
+		                    <!-- 此处按钮级别权限控制，目前只有 admin 拥有该权限！ -->
+		                    #if($SSOPermission.isActionable("10010"))
+		                    + '<a class="btn btn-xs btn-danger" onclick="delUser(' + "'" + id + "'" + ')"><i class="fa fa-remove"></i>删除</a>'
+		                    #end;
+				
+			}
+		} ];
+		
+		queryParams = function (params) {
+	        return dataQueryParams(params);
+	    };
+	    
+	    Grid(dataInit,dataUrl,queryParams,dataColumns);
+	}
+
+	//$(function(){
+	
+	
+	
+	function dataQueryParams(params) {		return {
+			_size : params.limit, //页面大小
+			_index : params.offset, //页码
+		};
+	} 
+	//得到查询的参数
+    
+ 	function Grid(tableInit,dataUrl,queryParams,dataColumns)
+	{
+		$('#' + tableInit).bootstrapTable({
+            url: dataUrl,     //请求后台的URL（*）
+            method: 'get',           //请求方式（*）
+            toolbar: '#toolbar',        //工具按钮用哪个容器
+            striped: true,           //是否显示行间隔色
+            cache: false,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,          //是否显示分页（*）
+            sortable: false,           //是否启用排序
+            sortOrder: "asc",          //排序方式
+            queryParams: queryParams,//传递参数（*）
+            sidePagination: "server",      //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber:1,            //初始化加载第一页，默认第一页
+            pageSize: 10,            //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],    //可供选择的每页的行数（*）
+            strictSearch: true,
+            clickToSelect: true,        //是否启用点击选中行
+            height: 460,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "id",           //每一行的唯一标识，一般为主键列
+            cardView: false,          //是否显示详细视图
+            detailView: false,          //是否显示父子表
+            columns: dataColumns,
+            detailView : true,
+            onExpandRow : function(index, row, $detail) {
+            	$detail.html('<table></table>').find('table');
+         		var html = "";
+         		//
+         		html += "<table class='table'>";
+         		html += "<thead>";
+         		html += "<tr>";
+         		html += "<th>站点ID</th>";
+         		html += "<th>站点名称</th>";
+         		html += "</tr>";
+         		html += "</thead>";
+         		html += '</table>';
+         		$detail.html(html);// 关键地方
+          	}
+        });
+		//$('#' + tableInit).bootstrapTable("insertRow", { index: rowIndex, row: rowdata });
+	} 
+	//showCount("showCount");
+	//showCount("showCount2");
+	//showCount("showCount3");
+</script>
+#end #extends("/common/framework.html")
+
